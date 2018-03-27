@@ -25,3 +25,5 @@ Route::get('/home', 'EmployeeController@home');
 Route::resource("/employees", "EmployeeController");
 Route::get("/fired","EmployeeController@fired");
 Route::get("/member", "EmployeeController@member");
+
+Route::resource("/news", "NewsController");
