@@ -13,7 +13,7 @@
 
 
 
-    <form action="/employees" method="POST" class="form-horizontal">
+    <form action="/employees" method="POST" class="form-horizontal" enctype="multipart/form-data">
     {{ csrf_field() }}
 
 
@@ -39,6 +39,12 @@
             <label for="task-name" class="col-sm-3 control-label">Position</label>
             <div class="col-sm-6">
                 <input type="text" name="position" id="task-name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="task-name" class="col-sm-3 control-label">Image</label>
+            <div class="col-sm-6">
+                <input type="file" name="image" id="task-name" class="form-control" >
             </div>
         </div>
     <div class="form-group">

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -51,6 +54,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'image' => 'required'
         ]);
     }
 
@@ -60,12 +64,21 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $request, array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        if($request->hasFile("image"))
+        {
+            $name = Storage::put("images", $request->file("image"));
+            $url = Storage::url($name);
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'image'=>$url
+            ]);
+//            dd($request->file("image"));
+        }
+
+
     }
 }

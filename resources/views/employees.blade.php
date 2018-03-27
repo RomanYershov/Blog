@@ -18,6 +18,7 @@
                     @endif
                     <table class="table table-striped task-table">
                         <thead>
+                        <th>@lang("messages.Image")</th>
                         <th>@lang("messages.Name")</th>
                         <th>@lang("messages.Surname")</th>
                         <th>@lang("messages.Salary")</th>
@@ -28,6 +29,7 @@
                         @foreach($employees as $employee)
 
                             <tr>
+                                <td><img src="{{$employee->image}}" alt="" height="40px" width="40px"></td>
                                 <td>{{$employee->name}}</td>
                                 <td>{{$employee->surname}}</td>
                                 <td>{{$employee->salary}}</td>

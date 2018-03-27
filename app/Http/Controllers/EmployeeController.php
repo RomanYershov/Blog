@@ -7,6 +7,7 @@ use App\Employee;
 use Illuminate\Support\Facades\App;
 use App\Member;
 use App\Phone;
+use Illuminate\Support\Facades\Storage;
 
 
 class EmployeeController extends Controller
@@ -63,9 +64,14 @@ class EmployeeController extends Controller
             'surname'=>'string|required|max:255',
             'position'=>'string|required|max:255'
         ]);//валидация полей ввода
-
-        $employee = new Employee($request->all());
-        $employee->save();
+        if($request->hasFile("image"))
+        {
+            $name = Storage::put("images", $request->file("image"));
+            $url = Storage::url($name);
+            $employee = new Employee($request->all());
+            $employee->image= $url;
+            $employee->save();
+        }
         return redirect("/employees");
     }
 

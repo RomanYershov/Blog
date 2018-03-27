@@ -19,6 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string("surname", 50);
             $table->integer("salary")->unsigned();
             $table->string("position", 50);
+            $table->string("image", 200);
             $table->softDeletes();
             $table->timestamps();
         });
