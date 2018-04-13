@@ -55,5 +55,6 @@
 
         </div>
     </div>
+    {{$employees->links()}}
 @endsection
 

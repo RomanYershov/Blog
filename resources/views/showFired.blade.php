@@ -24,5 +24,5 @@
         </table>
         <a href="/employees" class="btn btn-success">back</a>
     </div>
-
+{{$emp->links()}}
 @endsection

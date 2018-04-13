@@ -36,7 +36,7 @@ class EmployeeController extends Controller
             else App::setLocale('en');
         }
 
-        $employees=Employee::all();
+        $employees=Employee::paginate(1);
         return view("employees")->with(compact('employees'));
     }
 
@@ -133,12 +133,14 @@ class EmployeeController extends Controller
 
     public function fired()
     {
-        $emp=Employee::onlyTrashed()->get();
+        $emp=Employee::onlyTrashed()->paginate(1);
         return view("showFired")->with(compact("emp"));
     }
     public function member()
     {
         return Phone::find(1)->with("member")->first();
     }
+
+
 
 }

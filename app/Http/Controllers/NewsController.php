@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\News;
+use App\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +19,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news=News::with('user')->with('comments.user')->paginate(1);
+
+        return view("home")->with(compact("news", "comments"));
     }
 
     /**
@@ -41,11 +45,11 @@ class NewsController extends Controller
         $news=new News();
         $news->text=$request->text;
         $name=Storage::put("images", $request->file("image"));
-        $url=Storage::url("name");
+        $url=Storage::url($name);
         $news->image=$url;
         $news->user_id=Auth::user()->id;
         $news->save();
-        return redirect("/home");
+        return redirect("/home")->with(compact("news"));
     }
 
     /**
@@ -91,5 +95,16 @@ class NewsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function comment(Request $request)
+    {
+
+        $comment =new Comment();
+        $comment->news_id=$request->news_id;
+        $comment->comment=$request->comment;
+        $comment->user_id=Auth::user()->id;
+        $comment->save();
+        return back();
     }
 }

@@ -70,6 +70,7 @@ class RegisterController extends Controller
         {
             $name = Storage::put("images", $request->file("image"));
             $url = Storage::url($name);
+
             return User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
